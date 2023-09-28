@@ -1,20 +1,2 @@
 #!/bin/bash
-# Get the current working directory.
-cwd=$(pwd)
-
-# Get the parent of the working directory.
-parent_dir=$(dirname $cwd)
-
-# Iterate over all the HTML files in the current working directory.
-for file in $cwd/*.html; do
-
-  # Get the filename of the HTML file.
-  filename=$(basename $file)
-
-  # Get the full path to the HTML file in the parent of the working directory.
-  parent_file=$parent_dir/$filename
-
-  # If the HTML file does not exist in the parent of the working directory or is newer than the version in the parent of the working directory, then copy the file to the parent of the working directory.
-  if [ ! -f $parent_file ] || [ $file -nt $parent_file ]; then
-    cp $file $parent_dir
-  fi
+cp -u *.html ..
