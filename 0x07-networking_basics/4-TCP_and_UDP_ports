@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Script which displays ports with PID and name of programs to which  ports belong
+
+netstat -lp
