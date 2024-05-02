@@ -1,4 +1,4 @@
-global
+        global
         log /dev/log    local0
         log /dev/log    local1 notice
         chroot /var/lib/haproxy
@@ -47,5 +47,5 @@ frontend clarkre-frontend-https
 
 backend clarkre-backend
         balance roundrobin
-        server 530924-web-01 107.23.98.147:80 check
+	server 530924-web-01 107.23.98.147:80 check
         server 530924-web-02 34.224.6.56:80 check
