@@ -8,7 +8,7 @@ def number_of_subscribers(subreddit):
     headers = {"User-Agent": "Mozilla/5.0"}
     
     try:
-        # Make the GET request
+        # Make the GET request with no redirects allowed
         response = requests.get(url, headers=headers, allow_redirects=False)
         
         # Check if the response status code is 200 (OK)
@@ -21,3 +21,4 @@ def number_of_subscribers(subreddit):
     except requests.RequestException:
         # Catch any requests-related errors
         return 0
+
