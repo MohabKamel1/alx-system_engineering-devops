@@ -56,3 +56,5 @@ Once the misconfiguration was identified, the load balancer settings were prompt
    - Regularly update training materials to reflect new insights and best practices.
 
 By implementing these measures, we aim to prevent similar outages and ensure a more resilient and reliable service for our users.
+
+Reference: https://www.linkedin.com/pulse/postmortem-web-stack-outage-june-6-2024-mohab-kamel-ukjgf
