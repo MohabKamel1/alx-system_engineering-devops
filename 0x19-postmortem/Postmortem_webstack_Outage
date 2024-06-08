@@ -1,0 +1,58 @@
+# Postmortem: Web Stack Outage on June 6, 2024
+
+## Issue Summary
+
+**Duration:**  
+June 6, 2024, from 14:30 to 16:00 UTC
+
+**Impact:**  
+Our primary e-commerce platform experienced a significant outage, rendering the website inaccessible to users. Approximately 80% of our user base was affected, resulting in an inability to browse products, place orders, or access account information. Customer support also saw a 300% increase in ticket volume during the outage.
+
+**Root Cause:**  
+A misconfiguration in the load balancer settings caused an infinite loop of traffic redirection, leading to server overload and eventual crash.
+
+## Timeline
+
+- **14:30** - Issue detected via automated monitoring alerts indicating a spike in server errors and dropped requests.
+- **14:32** - Engineers begin investigation by checking server logs and monitoring dashboard.
+- **14:40** - Initial assumption was a DDoS attack due to high traffic patterns; mitigations for DDoS were deployed.
+- **14:50** - DDoS mitigations proved ineffective; traffic patterns did not match typical attack signatures.
+- **15:00** - Escalated to network infrastructure team for deeper analysis.
+- **15:15** - Network team identified abnormal traffic routing patterns; load balancer configurations were reviewed.
+- **15:30** - Discovered misconfiguration in the load balancer settings causing traffic loop.
+- **15:45** - Load balancer configuration corrected and servers restarted.
+- **16:00** - Services fully restored and normal traffic resumed.
+
+## Root Cause and Resolution
+
+### Root Cause:
+The outage was caused by a recent update to the load balancer configuration. A new routing rule intended to optimize traffic distribution inadvertently created a loop, causing each incoming request to be continuously redirected between servers. This resulted in rapid resource exhaustion and server crashes.
+
+### Resolution:
+Once the misconfiguration was identified, the load balancer settings were promptly corrected by removing the erroneous rule. A systematic server restart followed to ensure all systems returned to normal operation. Traffic monitoring confirmed that the loop was resolved and servers were handling requests correctly.
+
+## Corrective and Preventative Measures
+
+### Improvements:
+- Enhance load balancer configuration change review process.
+- Increase redundancy and failover capabilities for critical routing components.
+- Improve monitoring to detect unusual traffic patterns more swiftly.
+
+### Tasks:
+1. **Implement Load Balancer Configuration Audits:**
+   - Establish a mandatory peer-review process for any changes to load balancer settings.
+   - Develop automated scripts to validate configurations before deployment.
+
+2. **Expand Monitoring Capabilities:**
+   - Add specific alerts for unusual traffic redirection patterns.
+   - Deploy synthetic monitoring to simulate user interactions and detect accessibility issues.
+
+3. **Increase Redundancy:**
+   - Set up secondary load balancers to take over in case of primary load balancer failure.
+   - Conduct failover tests quarterly to ensure seamless transitions.
+
+4. **Conduct Training:**
+   - Train engineers on identifying and responding to traffic-related issues.
+   - Regularly update training materials to reflect new insights and best practices.
+
+By implementing these measures, we aim to prevent similar outages and ensure a more resilient and reliable service for our users.
